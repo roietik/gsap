@@ -1,0 +1,171 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>animation</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css?family=Teko:300,400,500,600,700&display=swap&subset=latin-ext");
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Teko", sans-serif;
+        font-size: 16px;
+        overflow: hidden;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        height: 100vh;
+        color: #fff;
+        background: #d22851;
+      }
+
+      .hero__image {
+        background: whitesmoke;
+        visibility: hidden;
+        cursor: pointer;
+      }
+      .hero__title {
+        align-self: center;
+        justify-self: center;
+        text-transform: uppercase;
+        padding: 40px;
+        font-size: 56px;
+        line-height: 72px;
+      }
+      .hero__title--name {
+        margin-bottom: 0;
+        padding-bottom: 20px;
+        position: relative;
+        z-index: 200;
+      }
+      .hero__title--description {
+        margin-top: 0;
+        padding-top: 0;
+        font-weight: 300;
+        font-size: 36px;
+        line-height: 42px;
+        letter-spacing: 3px;
+        position: relative;
+        z-index: 200;
+      }
+      .hero__title--social-media {
+        position: absolute;
+        transform: rotate(90deg);
+        top: 110px;
+        right: -100px;
+        z-index: 200;
+        font-size: 36px;
+      }
+      .hero__title--logo {
+        font-size: 24px;
+        position: absolute;
+        top: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <section class="hero">
+      <div class="hero__title">
+        <div class="hero__title--logo">
+          <p>logo</p>
+        </div>
+        <h2 class="hero__title--name">liquid animation</h2>
+        <p class="hero__title--description">
+          this is a custom animation from gsap
+        </p>
+        <div class="hero__title--social-media">
+          <p>social media lorem ipsum</p>
+        </div>
+      </div>
+      <div class="hero__image"></div>
+    </section>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r83/three.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="js/hover.js"></script>
+
+    <script>
+      const hero = document.querySelector(".hero");
+      const name = document.querySelector(".hero__title--name");
+      const desc = document.querySelector(".hero__title--description");
+      const image = document.querySelector(".hero__image");
+      const media = document.querySelector(".hero__title--social-media");
+      const logo = document.querySelector(".hero__title--logo");
+
+      new hoverEffect({
+        parent: document.querySelector(".hero__image"),
+        intensity: 0.3,
+        image1: "./img/img1.jpg",
+        image2: "./img/img2.jpg",
+        displacementImage: "./img/mask.png"
+      });
+
+      const tl = new TimelineMax({ delay: 0.5 });
+      tl.fromTo(
+        hero,
+        1,
+        { height: "0%" },
+        { height: "100%", ease: Power2.easeInOut }
+      )
+        .set(image, { visibility: "visible" }, "-=.8")
+        .fromTo(
+          image,
+          1,
+          { x: "-200%" },
+          { x: "0%", ease: Power2.easeInOut },
+          "-=0.8"
+        )
+        .fromTo(
+          desc,
+          0.8,
+          { y: "-1200%" },
+          { y: "0%", ease: Power2.easeInOut },
+          "-=0.4"
+        )
+        .fromTo(
+          name,
+          0.8,
+          { y: "-500%" },
+          { y: "0%", ease: Power2.easeInOut },
+          "-=0.4"
+        )
+        .fromTo(
+          image,
+          1,
+          { x: "0%" },
+          { x: "-80px", ease: Power2.easeInOut },
+          "-=0.8"
+        )
+        .fromTo(
+          logo,
+          1.5,
+          { y: "-200%" },
+          { y: "0%", ease: Power2.easeInOut },
+          "-=0.8"
+        )
+        .fromTo(
+          media,
+          1,
+          { x: "100px" },
+          { x: "0%", ease: Power2.easeInOut },
+          "-=1.7"
+        );
+    </script>
+  </body>
+</html>
